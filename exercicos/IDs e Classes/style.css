@@ -1,0 +1,29 @@
+@charset "UTF-8";
+    /*
+        em HTML id é igual a #
+        em HTML class é igual a .
+    */
+body {
+    background-color: rgb(4, 126, 240);
+    font-family: 'Times New Roman', Times, serif;
+}
+h1 {
+    color: rgb(54, 1, 245);
+}
+h1#principal {
+    text-align: center;
+    background-color: crimson;
+    color: rgb(175, 218, 255);
+}
+h2 {
+    color: rgb(6, 169, 218);
+}
+.basico {
+    color: darkred;
+}
+.intermediario {
+    color: orangered;
+}
+.avançado {
+    color: indianred;
+}

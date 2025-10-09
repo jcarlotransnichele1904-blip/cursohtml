@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venom e Carnificina</title>
+    <style>
+        /* Define o fundo preto da página e centraliza todo o conteúdo */
+        body {
+            background-color: black;
+            color: white; /* Garante que o texto seja visível no fundo preto */
+            text-align: center;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Estiliza o título */
+        h1 {
+            margin-top: 50px;
+            margin-bottom: 30px;
+        }
+
+        /* Estiliza o iframe do vídeo para que fique grande */
+        .video-container {
+            /* Usa Flexbox para garantir que o iframe fique centralizado */
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .video-container iframe {
+            width: 800px; /* Tamanho do vídeo (ajuste se preferir outro) */
+            height: 450px;
+        }
+
+        /* Estiliza o link "Ver mais" */
+        .link-mais {
+            display: block; /* Ocupa sua própria linha para ficar abaixo do vídeo */
+            margin-bottom: 20px;
+            color: #1a73e8; /* Cor de link do Google, por exemplo */
+            font-size: 1.2em;
+            text-decoration: none;
+        }
+
+        .link-mais:hover {
+            text-decoration: underline;
+        }
+
+        /* Estiliza a seta de voltar */
+        .back-link {
+            display: block; /* Garante que a imagem fique em sua própria linha */
+            margin-top: 50px; /* Espaço para ficar "lá embaixo" */
+        }
+    </style>
+    <link rel="shortcut icon" href="" type="image/x-icon">
+</head>
+<body>
+
+    <h1>Grandes Momentos de Venom e Carnificina</h1>
+
+    <!-- Contêiner para o vídeo para garantir o alinhamento central -->
+    <div class="video-container">
+        <!-- O link de incorporação do YouTube foi ajustado para o vídeo de Venom e Carnificina -->
+        <iframe src="https://www.youtube.com/embed/YPkE0Td3GYU" 
+                title="Especial Venom e Carnificina! (+Um somzão brabo do ALBK!)"
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+        </iframe>
+    </div>
+
+    <!-- Link para o canal do YouTube "Marcus Oceifeiro" -->
+    <a href="https://youtube.com/@marcusoceifeiro?si=OHNhXNgdze9Q59DE" target="_blank" rel="external" class="link-mais">Ver mais conteúdo!</a>
+
+    <!-- A seta de voltar fica separada no final da página -->
+    <a href="index.html" class="back-link">
+        <img src="Midia/Seta.png" alt="VOLTAR">
+    </a>
+
+</body>
+</html>
