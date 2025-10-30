@@ -1,7 +1,227 @@
-@charset "UTF-8";
+/* ===== Reset básico e tipografia ===== */
+*,
+*::before,
+*::after { box-sizing: border-box; }
 
-body {
-    background-color: rgb(218, 43, 20);
-    color: white;
-    text-align: center;
+html { scroll-behavior: smooth; }
+
+:root{
+  --bg: #f7f7f9;
+  --card: #ffffff;
+  --text: #1f2328;
+  --muted: #6b7280;
+  --accent: #6b8bff;
+  --accent-contrast: #ffffff;
+  --ring: 0 0 0 3px rgba(107,139,255,.25);
+  --shadow: 0 10px 25px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.05);
+  --radius: 14px;
+  --gap: 14px;
 }
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #0b0e14;
+    --card: #11151d;
+    --text: #e6e6ea;
+    --muted: #9aa4b2;
+    --accent: #7aa2ff;
+    --accent-contrast: #0b0e14;
+    --ring: 0 0 0 3px rgba(122,162,255,.28);
+    --shadow: 0 10px 25px rgba(0,0,0,.4), 0 2px 6px rgba(0,0,0,.35);
+  }
+}
+
+body{
+  margin: 0;
+  font: 500 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+  background: radial-gradient(1200px 600px at 10% -20%, rgba(107,139,255,.1), transparent) var(--bg);
+  color: var(--text);
+  letter-spacing: .2px;
+}
+
+/* ===== Layout do container ===== */
+main, .container{
+  max-width: 860px;
+  margin: clamp(16px, 4vw, 48px) auto;
+  padding: 0 clamp(12px, 3vw, 24px);
+}
+
+h1{
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.1;
+  margin: 6px 0 18px;
+  font-weight: 800;
+  letter-spacing: .2px;
+  background: linear-gradient(90deg, var(--text), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Subtítulo/descrição opcional */
+.subtitle{
+  margin: 0 0 22px;
+  color: var(--muted);
+}
+
+/* ===== Links gerais ===== */
+a{
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
+
+a:focus-visible{
+  box-shadow: var(--ring);
+  border-radius: 10px;
+}
+
+/* ===== Estrutura do teu HTML ===== */
+/* Remove bullets e espaçamentos inconsistentes dos ULs */
+ul{
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 24px;
+}
+
+/* Parágrafos que contêm links “título de seção” (muitos no teu HTML) */
+p{
+  margin: 0 0 10px;
+}
+
+/* Título de seção quando há uma UL logo abaixo */
+p:has(+ ul) > a,
+p > a[href="#"]{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--card);
+  border: 1px solid color-mix(in oklab, var(--muted) 20%, transparent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  font-weight: 700;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+p:has(+ ul) > a::before,
+p > a[href="#"]::before{
+  content: "▸";
+  opacity: .7;
+  transition: transform .18s ease, opacity .18s ease;
+}
+
+p:has(+ ul):hover > a,
+p > a[href="#"]:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(0,0,0,.10), 0 3px 10px rgba(0,0,0,.06);
+  border-color: color-mix(in oklab, var(--accent) 30%, transparent);
+}
+
+p:has(+ ul):hover > a::before,
+p > a[href="#"]:hover::before{
+  transform: translateX(3px);
+  opacity: 1;
+}
+
+/* ===== “Cartões” para listas de itens (li.listpq) ===== */
+ul:has(li.listpq){
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--gap);
+  margin-top: 14px;
+}
+
+li.listpq{
+  /* segurança para casos de HTML meio quebrado */
+  display: list-item;
+}
+
+li.listpq > p{
+  margin: 0;
+}
+
+li.listpq > p > a{
+  display: block;
+  padding: 14px 16px;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--card) 90%, transparent), var(--card));
+  border: 1px solid color-mix(in oklab, var(--muted) 18%, transparent);
+  border-radius: calc(var(--radius) - 2px);
+  box-shadow: var(--shadow);
+  font-weight: 600;
+  position: relative;
+  isolation: isolate;
+  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease, background- .16s ease;
+}
+
+/* Badge sutil para “tipo” deduzido do texto do link */
+li.listpq > p > a::after{
+  content: attr(data-badge);
+  position: absolute;
+  top: 10px; right: 10px;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--accent) 18%, transparent);
+  color: color-mix(in oklab, var(--text) 60%, var(--accent-contrast));
+}
+
+/* Efeito de hover */
+li.listpq > p > a:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 20px 38px rgba(0,0,0,.12), 0 4px 12px rgba(0,0,0,.08);
+  border-color: color-mix(in oklab, var(--accent) 40%, transparent);
+}
+
+/* Estado ativo/click */
+li.listpq > p > a:active{
+  transform: translateY(0);
+}
+
+/* ===== Links “soltos” (sem lista) — viram chips grandes ===== */
+body > p > a:not([href="#"]){
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 10px 10px 0;
+  padding: 10px 14px;
+  background: color-mix(in oklab, var(--card) 85%, transparent);
+  border: 1px solid color-mix(in oklab, var(--muted) 18%, transparent);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  font-weight: 600;
+  transition: transform .16s ease, border-color .16s ease, box-shadow .16s;
+}
+
+body > p > a:not([href="#"]):hover{
+  transform: translateY(-2px);
+  border-color: color-mix(in oklab, var(--accent) 35%, transparent);
+}
+
+/* ===== Acessibilidade e “no motion” ===== */
+@media (prefers-reduced-motion: reduce){
+  *{ transition: none !important; }
+  html{ scroll-behavior: auto; }
+}
+
+/* ===== Pequenos “polimentos” ===== */
+/* Centralizar conteúdo e limitar largura visual sem tocar no HTML existente */
+body > h1,
+body > p,
+body > ul{
+  margin-left: auto;
+  margin-right: auto;
+  width: min(860px, calc(100% - 24px));
+}
+
+/* Corrige ícones “▸” para p’s que não deveriam parecer seção */
+body > p > a:not([href="#"])::before{ content: none; }
+
+/* Espaçamento entre seções: “título de seção” + lista */
+p:has(+ ul){ margin-top: 18px; }
+
+/* Deixa os textos dos cards que repetem “Caixa 1” menos confusos (opcional):
+   Se quiser, você pode manualmente adicionar data-badge no HTML:
+   <a href="Cores/cores1.html" data-badge="Cores">Cores 1</a>
+   Sem isso, o badge fica vazio e não aparece. */
+li.listpq > p > a:not([data-badge])::after{ display: none; }
