@@ -58,13 +58,12 @@ h1{
   color: transparent;
 }
 
-/* Subtítulo/descrição opcional */
 .subtitle{
   margin: 0 0 22px;
   color: var(--muted);
 }
 
-/* ===== Links gerais ===== */
+/* ===== Links ===== */
 a{
   color: inherit;
   text-decoration: none;
@@ -76,20 +75,18 @@ a:focus-visible{
   border-radius: 10px;
 }
 
-/* ===== Estrutura do teu HTML ===== */
-/* Remove bullets e espaçamentos inconsistentes dos ULs */
+/* ===== Estrutura do HTML ===== */
 ul{
   list-style: none;
   padding: 0;
   margin: 12px 0 24px;
 }
 
-/* Parágrafos que contêm links “título de seção” (muitos no teu HTML) */
 p{
   margin: 0 0 10px;
 }
 
-/* Título de seção quando há uma UL logo abaixo */
+/* Seções principais */
 p:has(+ ul) > a,
 p > a[href="#"]{
   display: inline-flex;
@@ -124,7 +121,7 @@ p > a[href="#"]:hover::before{
   opacity: 1;
 }
 
-/* ===== “Cartões” para listas de itens (li.listpq) ===== */
+/* ===== Cartões normais (li.listpq) ===== */
 ul:has(li.listpq){
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -132,14 +129,10 @@ ul:has(li.listpq){
   margin-top: 14px;
 }
 
-li.listpq{
-  /* segurança para casos de HTML meio quebrado */
-  display: list-item;
+li.listpq{ display: list-item; 
 }
 
-li.listpq > p{
-  margin: 0;
-}
+li.listpq > p{ margin: 0; }
 
 li.listpq > p > a{
   display: block;
@@ -149,36 +142,16 @@ li.listpq > p > a{
   border-radius: calc(var(--radius) - 2px);
   box-shadow: var(--shadow);
   font-weight: 600;
-  position: relative;
-  isolation: isolate;
-  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease, background- .16s ease;
+  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease;
 }
 
-/* Badge sutil para “tipo” deduzido do texto do link */
-li.listpq > p > a::after{
-  content: attr(data-badge);
-  position: absolute;
-  top: 10px; right: 10px;
-  font-size: 12px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: color-mix(in oklab, var(--accent) 18%, transparent);
-  color: color-mix(in oklab, var(--text) 60%, var(--accent-contrast));
-}
-
-/* Efeito de hover */
 li.listpq > p > a:hover{
   transform: translateY(-3px);
   box-shadow: 0 20px 38px rgba(0,0,0,.12), 0 4px 12px rgba(0,0,0,.08);
   border-color: color-mix(in oklab, var(--accent) 40%, transparent);
 }
 
-/* Estado ativo/click */
-li.listpq > p > a:active{
-  transform: translateY(0);
-}
-
-/* ===== Links “soltos” (sem lista) — viram chips grandes ===== */
+/* ===== Links soltos ===== */
 body > p > a:not([href="#"]){
   display: inline-flex;
   align-items: center;
@@ -198,14 +171,50 @@ body > p > a:not([href="#"]):hover{
   border-color: color-mix(in oklab, var(--accent) 35%, transparent);
 }
 
-/* ===== Acessibilidade e “no motion” ===== */
+/* ===== Lista Invertida ===== */
+.invert-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--gap, 14px);
+  margin-top: 14px;
+}
+
+ li.listpq > p > a{
+  background: #ffffff !important;
+  color: #111 !important;
+  border: 1px solid rgba(0,0,0,.12) !important;
+  box-shadow: 0 10px 25px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.05) !important;
+  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease !important;
+}
+
+.invert-list li.listpq > p > a:hover{
+  transform: translateY(-3px);
+  border-color: rgba(0,0,0,.25) !important;
+  box-shadow: 0 20px 38px rgba(0,0,0,.12), 0 4px 12px rgba(0,0,0,.08) !important;
+}
+
+.invert-list li.listpq > p > a:active{
+  transform: translateY(0);
+}
+
+.invert-list li.listpq > p > a::after{
+  background: rgba(0,0,0,.06) !important;
+  color: #333 !important;
+}
+
+.invert-list li.listpq > p > a:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(24,119,242,.35) !important;
+  border-color: rgba(24,119,242,.6) !important;
+}
+
+/* ===== Acessibilidade ===== */
 @media (prefers-reduced-motion: reduce){
   *{ transition: none !important; }
   html{ scroll-behavior: auto; }
 }
 
-/* ===== Pequenos “polimentos” ===== */
-/* Centralizar conteúdo e limitar largura visual sem tocar no HTML existente */
+/* ===== Polimentos ===== */
 body > h1,
 body > p,
 body > ul{
@@ -214,14 +223,6 @@ body > ul{
   width: min(860px, calc(100% - 24px));
 }
 
-/* Corrige ícones “▸” para p’s que não deveriam parecer seção */
 body > p > a:not([href="#"])::before{ content: none; }
-
-/* Espaçamento entre seções: “título de seção” + lista */
 p:has(+ ul){ margin-top: 18px; }
-
-/* Deixa os textos dos cards que repetem “Caixa 1” menos confusos (opcional):
-   Se quiser, você pode manualmente adicionar data-badge no HTML:
-   <a href="Cores/cores1.html" data-badge="Cores">Cores 1</a>
-   Sem isso, o badge fica vazio e não aparece. */
 li.listpq > p > a:not([data-badge])::after{ display: none; }
